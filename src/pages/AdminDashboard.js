@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { BACKEND_API_URL } from '../constant';
 
 const AdminDashboard = () => {
   const [blogs, setBlogs] = useState([]);
@@ -12,7 +13,7 @@ const AdminDashboard = () => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    const { data } = await axios.get('http://localhost:5000/api/blogs/pending', config);
+    const { data } = await axios.get(`${BACKEND_API_URL}/api/blogs/pending`, config);
     setBlogs(data);
   };
 
@@ -24,7 +25,7 @@ const AdminDashboard = () => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    await axios.put(`http://localhost:5000/api/blogs/approve/${id}`, {}, config);
+    await axios.put(`${BACKEND_API_URL}/api/blogs/approve/${id}`, {}, config);
     fetchBlogs();
   };
 
@@ -36,7 +37,7 @@ const AdminDashboard = () => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    await axios.put(`http://localhost:5000/api/blogs/reject/${id}`, { rejectionReason }, config);
+    await axios.put(`${BACKEND_API_URL}/api/blogs/reject/${id}`, { rejectionReason }, config);
     setRejectingBlogId(null); // Reset rejecting blog ID after submission
     setRejectionReason(''); // Clear the reason input
     fetchBlogs();

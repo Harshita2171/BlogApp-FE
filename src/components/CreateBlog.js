@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { BACKEND_API_URL } from '../constant';
 
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
@@ -57,7 +58,7 @@ const CreateBlog = () => {
                 console.log(key, value, "data"); // This should log each key/value pair in the formData
             }
 
-            await axios.post('http://localhost:5000/api/blogs', formData, config);
+            await axios.post(`${BACKEND_API_URL}/api/blogs`, formData, config);
             navigate('/dashboard'); // Redirect to dashboard after successful blog creation
         } catch (err) {
             setError('Failed to create blog. Please try again.');

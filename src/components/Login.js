@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BACKEND_API_URL } from '../constant';
 
 const Login = ({ setUserInfo }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ const Login = ({ setUserInfo }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post(`${BACKEND_API_URL}/api/auth/login`, { email, password });
     localStorage.setItem('userInfo', JSON.stringify(data));
     setUserInfo(data);
     if (data.type === 1) {

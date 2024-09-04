@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BACKEND_API_URL } from '../constant';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const { data } = await axios.get('http://localhost:5000/api/blogs');
+      const { data } = await axios.get(`${BACKEND_API_URL}/api/blogs`);
       setBlogs(data);
     };
     fetchBlogs();
@@ -22,7 +23,7 @@ const Home = () => {
           <div key={blog._id} className="col-md-4 mb-4">
             <div className="card">
               <img
-                src={`http://localhost:5000/${blog.image}`}
+                src={`${BACKEND_API_URL}/${blog.image}`}
                 className="card-img-top"
                 alt={blog.title}
               />

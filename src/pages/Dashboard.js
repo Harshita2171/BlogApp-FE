@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { BACKEND_API_URL } from '../constant';
 
 const Dashboard = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,7 +15,7 @@ const Dashboard = () => {
         const config = {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         };
-        const { data } = await axios.get('http://localhost:5000/api/blogs/mine', config);
+        const { data } = await axios.get(`${BACKEND_API_URL}/api/blogs/mine`, config);
         setBlogs(data);
       } catch (err) {
         setError('Failed to fetch blogs');
@@ -36,7 +37,7 @@ const Dashboard = () => {
         const config = {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         };
-        await axios.delete(`http://localhost:5000/api/blogs/${id}`, config);
+        await axios.delete(`${BACKEND_API_URL}/api/blogs/${id}`, config);
         setBlogs(blogs.filter(blog => blog._id !== id));
       } catch (err) {
         setError('Failed to delete blog');

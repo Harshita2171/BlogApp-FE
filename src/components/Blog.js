@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { BACKEND_API_URL } from '../constant';
 
 const Blog = () => {
   const [blog, setBlog] = useState({});
@@ -10,7 +11,7 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const { data } = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+      const { data } = await axios.get(`${BACKEND_API_URL}/api/blogs/${id}`);
       console.log(data, "data");
       setBlog(data);
     };
@@ -20,7 +21,7 @@ const Blog = () => {
   return (
     <div className='container m-5'>
       <h1 className='text-center'>{blog.title}</h1>
-      <img className='mb-5' style={{width:'auto',maxHeight:'400px'}} src={`http://localhost:5000/${blog.image}`} alt="blog" />
+      <img className='mb-5' style={{width:'auto',maxHeight:'400px'}} src={`${BACKEND_API_URL}/${blog.image}`} alt="blog" />
       <p dangerouslySetInnerHTML={{ __html: blog.content }} />
     </div>
   );

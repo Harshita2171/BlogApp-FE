@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { BACKEND_API_URL } from '../constant';
 
 const EditBlog = () => {
     const [title, setTitle] = useState('');
@@ -33,7 +34,7 @@ const EditBlog = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 };
-                const { data } = await axios.get(`http://localhost:5000/api/blogs/${id}`, config);
+                const { data } = await axios.get(`${BACKEND_API_URL}/api/blogs/${id}`, config);
                 setTitle(data.title);
                 setContent(data.content);
                 setStatus(data.status);
@@ -73,7 +74,7 @@ const EditBlog = () => {
                 },
             };
 
-            await axios.put(`http://localhost:5000/api/blogs/${id}`, formData, config);
+            await axios.put(`${BACKEND_API_URL}/api/blogs/${id}`, formData, config);
             setLoading(false);
             navigate('/dashboard');
         } catch (error) {
@@ -110,7 +111,7 @@ const EditBlog = () => {
                 </div>
                 {imageUrl && (
                     <div>
-                        <img src={`http://localhost:5000/${imageUrl}`} alt="Banner" style={{ width: '100px', height: 'auto' }} />
+                        <img src={`${BACKEND_API_URL}/${imageUrl}`} alt="Banner" style={{ width: '100px', height: 'auto' }} />
                         <p>Current Image</p>
                     </div>
                 )}
